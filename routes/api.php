@@ -15,9 +15,7 @@ use Illuminate\Http\Request;
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
 ], function ($router) {
-    Route::apiResource('movies', 'Api\MovieController');
     Route::post('logout', 'Auth\AuthController@logout');
     Route::post('refresh', 'Auth\AuthController@refresh');
     Route::post('me', 'Auth\AuthController@me');
@@ -25,3 +23,4 @@ Route::group([
 });
 
 Route::post('login', 'Auth\AuthController@login');
+Route::apiResource('movies', 'Api\MovieController')->middleware('auth:api');

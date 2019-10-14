@@ -4,10 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Movie;
+use App\Services\MovieService;
+
 
 class MovieController extends Controller
 {
+    private $movieService;
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct(MovieService $movieService)
+    {
+        $this->movieService = $movieService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return Movie::all();
+        return $this->movieService->getAll();
     }
 
     /**
@@ -37,7 +49,7 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->movieService->getByID($id);
     }
 
     /**
