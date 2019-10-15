@@ -23,6 +23,6 @@ class MovieServiceImpl implements MovieService
     public function update($request, $id)
     { }
 
-    public function delete(Movie $movie)
+    public function delete($movie)
     { }
 }

@@ -8,7 +8,7 @@ interface MovieService
 {
     public function getAll();
     public function getByID($id);
-    public function create(Request $request);
-    public function update(Request $request, Movie $movie);
-    public function delete(Movie $movie);
+    public function create($request);
+    public function update($request, $movie);
+    public function delete($movie);
 }
