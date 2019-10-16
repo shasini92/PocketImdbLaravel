@@ -8,9 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class MovieServiceImpl implements MovieService
 {
-    public function getAll()
+    const PAGINATE_LIMIT = 10;
+
+    public function getAll($queryTerm)
     {
-        return Movie::paginate(10);
+        $query = Movie::query();
+
+        if ($query !== null) {
+            $query->whereRaw("title LIKE '%$queryTerm%'");
+        }
+
+        return $query->paginate(self::PAGINATE_LIMIT);
     }
 
     public function getByID($id)
