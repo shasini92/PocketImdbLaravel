@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-use App\Movie;
-
 interface MovieService
 {
-    public function getAll();
+    public function getAll($queryTerm);
     public function getByID($id);
     public function create($request);
     public function update($request, $movie);

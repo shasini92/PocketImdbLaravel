@@ -25,9 +25,12 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->movieService->getAll();
+
+        $query = $request->input('searchTerm', null);
+
+        return $this->movieService->getAll($query);
     }
 
     /**
