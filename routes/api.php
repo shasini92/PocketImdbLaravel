@@ -24,4 +24,4 @@ Route::group([
 
 Route::post('login', 'Auth\AuthController@login');
 Route::apiResource('movies', 'Api\MovieController')->middleware('auth:api');
-Route::post('movies/{id}/like', 'Api\ReactController@react');
+Route::get('movies/{id}/react', 'Api\ReactController@react');

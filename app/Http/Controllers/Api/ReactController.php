@@ -11,9 +11,10 @@ class ReactController extends Controller
 {
     public function react(Request $request)
     {
+        // return $request;
         return Reaction::updateOrCreate(
             ['user_id' => Auth::id(), 'movie_id' => $request->id],
-            ['reaction_type' => $request->reactionType]
+            ['reaction_type' => "$request->reactionType"]
         );
     }
 }
