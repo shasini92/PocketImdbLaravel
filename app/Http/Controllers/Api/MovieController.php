@@ -27,11 +27,9 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('searchTerm')) {
-            $query = $request->input('searchTerm');
-        } else {
-            $query = null;
-        }
+
+        $query = $request->input('searchTerm', null);
+
         return $this->movieService->getAll($query);
     }
 
