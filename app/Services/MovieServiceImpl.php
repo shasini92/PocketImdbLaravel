@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Movie;
 use App\Services\MovieService;
-use Illuminate\Support\Facades\Auth;
 
 class MovieServiceImpl implements MovieService
 {
@@ -23,7 +22,7 @@ class MovieServiceImpl implements MovieService
 
     public function getByID($id)
     {
-        return Movie::find($id);
+        return Movie::where('id', $id)->with('reactions')->get();
     }
 
     public function create($request)
