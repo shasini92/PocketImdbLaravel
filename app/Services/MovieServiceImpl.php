@@ -9,12 +9,15 @@ class MovieServiceImpl implements MovieService
 {
     const PAGINATE_LIMIT = 10;
 
-    public function getAll($queryTerm)
+    public function getAll($searchQuery, $genreId)
     {
         $query = Movie::query();
 
-        if ($query !== null) {
-            $query->whereRaw("title LIKE '%$queryTerm%'");
+        if ($searchQuery !== null) {
+            $query->whereRaw("title LIKE '%$searchQuery%'");
+        }
+        if ($genreId !== null) {
+            $query->whereRaw("genre_id = '$genreId'");
         }
 
         return $query->latest()->paginate(self::PAGINATE_LIMIT);
@@ -22,7 +25,7 @@ class MovieServiceImpl implements MovieService
 
     public function getByID($id)
     {
-        return Movie::where('id', $id)->with('reactions')->get();
+        return Movie::where('id', $id)->with('reactions')->first();
     }
 
     public function create($data)
