@@ -18,7 +18,7 @@ class MovieServiceImpl implements MovieService
             $query->whereRaw("title LIKE '%$queryTerm%'");
         }
 
-        return $query->paginate(self::PAGINATE_LIMIT);
+        return $query->latest()->paginate(self::PAGINATE_LIMIT);
     }
 
     public function getByID($id)
@@ -28,14 +28,7 @@ class MovieServiceImpl implements MovieService
 
     public function create($request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'genre_id' => 'required',
-            'image_url' => 'required'
-        ]);
-
-        return Movie::create($request->all() + ['user_id' => Auth::id()]);
+        return Movie::create($request + ['user_id' => Auth::id()]);
     }
 
     public function update($request, $id)
