@@ -2,29 +2,22 @@
 
 namespace App\Services;
 
-use App\Genre;
 use App\Movie;
 use App\Services\MovieService;
-use Illuminate\Support\Facades\Auth;
 
 class MovieServiceImpl implements MovieService
 {
     const PAGINATE_LIMIT = 10;
 
-    public function getAll($searchQuery, $genreId)
+    public function getAll($queryTerm)
     {
         $query = Movie::query();
 
-        if ($searchQuery !== null) {
-            $query->whereRaw("title LIKE '%$searchQuery%'");
+        if ($query !== null) {
+            $query->whereRaw("title LIKE '%$queryTerm%'");
         }
 
-        if ($genreId !== null) {
-            $query->whereRaw("genre_id LIKE '%$genreId%'");
-        }
-
-
-        return $query->paginate(self::PAGINATE_LIMIT);
+        return $query->latest()->paginate(self::PAGINATE_LIMIT);
     }
 
     public function getByID($id)
@@ -32,13 +25,10 @@ class MovieServiceImpl implements MovieService
         return Movie::find($id);
     }
 
-    public function getGenres()
-    {
-        return Genre::all();
-    }
-
     public function create($request)
-    { }
+    {
+        return Movie::create($request);
+    }
 
     public function update($request, $id)
     { }
