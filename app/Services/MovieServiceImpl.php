@@ -27,7 +27,16 @@ class MovieServiceImpl implements MovieService
     }
 
     public function create($request)
-    { }
+    {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'genre_id' => 'required',
+            'image_url' => 'required'
+        ]);
+
+        return Movie::create($request->all() + ['user_id' => Auth::id()]);
+    }
 
     public function update($request, $id)
     { }

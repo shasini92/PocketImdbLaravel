@@ -41,7 +41,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->movieService->create($request);
     }
 
     /**
