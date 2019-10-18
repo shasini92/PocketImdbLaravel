@@ -26,9 +26,9 @@ class MovieServiceImpl implements MovieService
         return Movie::find($id);
     }
 
-    public function create($request)
+    public function create($data)
     {
-        return Movie::create($request + ['user_id' => Auth::id()]);
+        return Movie::create($data);
     }
 
     public function update($request, $id)
