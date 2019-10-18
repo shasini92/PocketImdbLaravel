@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMovieRequest;
 use App\Services\MovieService;
 
 
@@ -45,9 +46,9 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMovieRequest $request)
     {
-        //
+        return $this->movieService->create($request->validated());
     }
 
     /**

@@ -22,12 +22,12 @@ class MovieServiceImpl implements MovieService
 
     public function getByID($id)
     {
-        return Movie::find($id);
+        return Movie::where('id', $id)->with('reactions')->get();
     }
 
-    public function create($request)
+    public function create($data)
     {
-        return Movie::create($request);
+        return Movie::create($data);
     }
 
     public function update($request, $id)
