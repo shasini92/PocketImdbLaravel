@@ -28,9 +28,15 @@ class MovieController extends Controller
     public function index(Request $request)
     {
 
-        $query = $request->input('searchTerm', null);
+        $searchQuery = $request->input('searchTerm', null);
+        $genreId = $request->input('genreId', null);
 
-        return $this->movieService->getAll($query);
+        return $this->movieService->getAll($searchQuery, $genreId);
+    }
+
+    public function genres()
+    {
+        return $this->movieService->getGenres();
     }
 
     /**
