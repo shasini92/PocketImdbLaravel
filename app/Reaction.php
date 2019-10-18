@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Movie;
 use Illuminate\Database\Eloquent\Model;
 
 class Reaction extends Model
@@ -17,9 +16,4 @@ class Reaction extends Model
         'movie_id',
         'reaction_type'
     ];
-
-    public function movie()
-    {
-        return $this->belongsTo(Movie::class);
-    }
 }

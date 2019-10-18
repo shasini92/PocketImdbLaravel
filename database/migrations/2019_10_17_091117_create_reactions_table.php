@@ -16,8 +16,10 @@ class CreateReactionsTable extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('movie_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('movie_id');
+            $table->foreign('movie_id')->references('id')->on('movies');
             $table->enum('reaction_type', [
                 Reaction::REACTION_TYPE_LIKED,
                 Reaction::REACTION_TYPE_DISLIKED
