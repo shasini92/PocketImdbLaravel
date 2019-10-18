@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App\Reaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Movie extends Model
 {
@@ -12,4 +15,8 @@ class Movie extends Model
         'genre_id',
         'image_url'
     ];
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
 }
