@@ -7,12 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Services\MovieService;
 
-
 class MovieController extends Controller
 {
     private $movieService;
     /**
-     * Create a new AuthController instance.
+     * Create a new MovieController instance.
      *
      * @return void
      */
@@ -29,10 +28,12 @@ class MovieController extends Controller
     public function index(Request $request)
     {
 
-        $query = $request->input('searchTerm', null);
+        $searchQuery = $request->input('searchTerm', null);
+        $genreId = $request->input('genreId', null);
 
-        return $this->movieService->getAll($query);
+        return $this->movieService->getAll($searchQuery, $genreId);
     }
+
 
     /**
      * Store a newly created resource in storage.

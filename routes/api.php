@@ -22,6 +22,12 @@ Route::group([
     Route::post('register', 'Auth\RegisterController@create');
 });
 
+Route::group([
+    'middleware' => 'auth:api',
+], function ($router) {
+    Route::apiResource('movies', 'Api\MovieController');
+    Route::get('genres', 'Api\GenresController@index');
+    Route::post('movies/{id}/reactions', 'Api\ReactionsController@create');
+});
+
 Route::post('login', 'Auth\AuthController@login');
-Route::apiResource('movies', 'Api\MovieController')->middleware('auth:api');
-Route::post('movies/{id}/reactions', 'Api\ReactionsController@create');
