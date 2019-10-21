@@ -9,8 +9,12 @@ class MovieServiceImpl implements MovieService
 {
     const PAGINATE_LIMIT = 10;
 
-    public function getAll($searchQuery, $genreId)
+    public function getAll($request)
     {
+
+        $searchQuery = $request->input('searchTerm', null);
+        $genreId = $request->input('genreId', null);
+
         $query = Movie::query();
 
         if ($searchQuery !== null) {
@@ -27,7 +31,7 @@ class MovieServiceImpl implements MovieService
     {
         Movie::find($id)->increment('visits');
 
-        return Movie::where('id', $id)->with('reactions')->first();
+        return Movie::where('id', $id)->with('reactions')->with('genre')->first();
     }
 
     public function create($data)
