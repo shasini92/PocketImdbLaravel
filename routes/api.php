@@ -29,6 +29,7 @@ Route::group([
     Route::get('genres', 'Api\GenresController@index');
     Route::post('movies/{id}/reactions', 'Api\ReactionsController@store');
     Route::post('movies/{id}/comments', 'Api\CommentController@store');
+    Route::get('movies/{id}/comments', 'Api\CommentController@index');
 });
 
 Route::post('login', 'Auth\AuthController@login');

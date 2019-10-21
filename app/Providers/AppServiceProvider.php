@@ -28,9 +28,15 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\MovieService',
             'App\Services\MovieServiceImpl'
         );
+
         $this->app->bind(
             'App\Services\GenreService',
             'App\Services\GenreServiceImpl'
+        );
+
+        $this->app->bind(
+            'App\Services\CommentService',
+            'App\Services\CommentServiceImpl'
         );
     }
 }

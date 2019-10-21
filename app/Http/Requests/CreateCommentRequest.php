@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+
 
 class CreateCommentRequest extends FormRequest
 {
@@ -16,16 +18,15 @@ class CreateCommentRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function validator()
     {
-        return [
-            'movieId' => 'exists:movies,id',
+        $inputs = array_merge($this->all(), [
+            'movie_id' => $this->id,
+        ]);
+
+        return Validator::make($inputs, [
+            'movie_id' => 'exists:movies,id',
             'commentBody' => 'max:500|required'
-        ];
+        ]);
     }
 }
