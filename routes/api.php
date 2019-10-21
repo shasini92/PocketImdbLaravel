@@ -27,7 +27,8 @@ Route::group([
 ], function ($router) {
     Route::apiResource('movies', 'Api\MovieController');
     Route::get('genres', 'Api\GenresController@index');
-    Route::post('movies/{id}/reactions', 'Api\ReactionsController@create');
+    Route::post('movies/{id}/reactions', 'Api\ReactionsController@store');
+    Route::post('movies/{id}/comments', 'Api\CommentController@store');
 });
 
 Route::post('login', 'Auth\AuthController@login');

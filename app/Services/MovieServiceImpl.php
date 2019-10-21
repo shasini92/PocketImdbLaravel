@@ -31,7 +31,7 @@ class MovieServiceImpl implements MovieService
     {
         Movie::find($id)->increment('visits');
 
-        return Movie::where('id', $id)->with('reactions')->with('genre')->first();
+        return Movie::where('id', $id)->with('reactions')->with('genre')->with('comments')->first();
     }
 
     public function create($data)
