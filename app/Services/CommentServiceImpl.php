@@ -12,7 +12,7 @@ class CommentServiceImpl implements CommentService
 
     public function getByMovieId($id)
     {
-        return Comment::where('movie_id', $id)->paginate(self::PAGINATE_LIMIT);
+        return Comment::where('movie_id', $id)->latest()->paginate(self::PAGINATE_LIMIT);
     }
 
     public function create($data)
