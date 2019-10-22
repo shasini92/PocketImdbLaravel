@@ -29,8 +29,9 @@ class MovieController extends Controller
     {
         $searchQuery = $request->input('searchTerm', null);
         $genreId = $request->input('genreId', null);
+        $popular = $request->input('popular', null);
 
-        return $this->movieService->getAll($searchQuery, $genreId);
+        return $this->movieService->getAll($searchQuery, $genreId, $popular);
     }
 
 

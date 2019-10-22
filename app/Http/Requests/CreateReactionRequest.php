@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\Reaction;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+
 
 class CreateReactionRequest extends FormRequest
 {
@@ -18,16 +20,15 @@ class CreateReactionRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function validator()
     {
-        return [
+        $inputs = array_merge($this->all(), [
+            'movieId' => $this->id,
+        ]);
+
+        return Validator::make($inputs, [
             'movieId' => 'exists:movies,id',
             'reactionType' => Rule::in(Reaction::REACTION_TYPE_DISLIKED, Reaction::REACTION_TYPE_LIKED)
-        ];
+        ]);
     }
 }
