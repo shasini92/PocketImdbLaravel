@@ -9,12 +9,8 @@ class MovieServiceImpl implements MovieService
 {
     const PAGINATE_LIMIT = 10;
 
-    public function getAll($request)
+    public function getAll($searchQuery, $genreId)
     {
-
-        $searchQuery = $request->input('searchTerm', null);
-        $genreId = $request->input('genreId', null);
-
         $query = Movie::query();
 
         if ($searchQuery !== null) {
