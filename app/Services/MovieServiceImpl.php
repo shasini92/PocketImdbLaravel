@@ -25,9 +25,10 @@ class MovieServiceImpl implements MovieService
 
     public function getByID($id)
     {
-        Movie::find($id)->increment('visits');
+        $movie = Movie::where('id', $id)->with(['reactions', 'genre'])->first();
+        $movie->increment('visits');
 
-        return Movie::where('id', $id)->with('reactions')->with('genre')->first();
+        return $movie;
     }
 
     public function create($data)
