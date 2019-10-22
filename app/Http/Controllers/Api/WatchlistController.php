@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateWatchlistRequest;
+use App\Http\Requests\UpdateWatchlistRequest;
 use App\Services\UserService;
 
 class WatchlistController extends Controller
@@ -20,7 +22,9 @@ class WatchlistController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->userService->getWatchlistMovies($request);
+        $watched = $request->input('watched', null);
+
+        return $this->userService->getWatchlistMovies($watched);
     }
 
     /**
@@ -29,10 +33,9 @@ class WatchlistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateWatchlistRequest $request)
     {
-        // return $request->id;
-        return $this->userService->addToWatchlist($request->id);
+        return $this->userService->addToWatchlist($request->validated());
     }
 
     /**
@@ -42,9 +45,9 @@ class WatchlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(UpdateWatchlistRequest $request)
     {
-        return $this->userService->markAsWatched($id);
+        return $this->userService->markAsWatched($request->validated());
     }
 
     /**
