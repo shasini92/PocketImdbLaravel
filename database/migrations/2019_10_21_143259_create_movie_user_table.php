@@ -19,7 +19,7 @@ class CreateMovieUserTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('movie_id');
             $table->foreign('movie_id')->references('id')->on('movies');
-            $table->boolean('watched');
+            $table->boolean('watched')->default(0);
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ Route::group([
     'middleware' => 'auth:api',
 ], function ($router) {
     Route::apiResource('movies', 'Api\MovieController');
+    Route::apiResource('watchlist', 'Api\WatchlistController');
     Route::get('genres', 'Api\GenresController@index');
     Route::post('movies/{id}/reactions', 'Api\ReactionsController@store');
     Route::post('movies/{id}/comments', 'Api\CommentController@store');

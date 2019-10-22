@@ -38,5 +38,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\CommentService',
             'App\Services\CommentServiceImpl'
         );
+
+        $this->app->bind(
+            'App\Services\UserService',
+            'App\Services\UserServiceImpl'
+        );
     }
 }
