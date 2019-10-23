@@ -6,15 +6,9 @@ use App\Services\UserService;
 
 class UserServiceImpl implements UserService
 {
-    public function getWatchlistMovies($watched)
+    public function getWatchlistMovies()
     {
-        $query = auth()->user()->moviesToWatch()->orderBy('movie_user.created_at', 'desc');
-
-        if ($watched !== null) {
-            $query->where('watched', 1);
-        }
-
-        return $query->get();
+        return auth()->user()->moviesToWatch()->orderBy('movie_user.created_at', 'desc')->get();
     }
 
     public function addToWatchlist($movieId)

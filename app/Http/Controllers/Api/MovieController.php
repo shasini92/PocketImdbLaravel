@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GetMoviesRequest;
 use App\Http\Requests\StoreMovieRequest;
 use App\Services\MovieService;
 
@@ -25,12 +26,9 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(GetMoviesRequest $request)
     {
-        $searchQuery = $request->input('searchTerm', null);
-        $genreId = $request->input('genreId', null);
-
-        return $this->movieService->getAll($searchQuery, $genreId);
+        return $this->movieService->getAll($request->validated());
     }
 
 
