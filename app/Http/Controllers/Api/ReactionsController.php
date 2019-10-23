@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReactionsController extends Controller
 {
-    public function create(CreateReactionRequest $request)
+    public function store(CreateReactionRequest $request)
     {
         $data = $request->validated();
 

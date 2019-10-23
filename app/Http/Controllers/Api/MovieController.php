@@ -27,7 +27,6 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-
         $searchQuery = $request->input('searchTerm', null);
         $genreId = $request->input('genreId', null);
 

@@ -20,22 +20,19 @@ class MovieServiceImpl implements MovieService
             $query->whereRaw("genre_id = '$genreId'");
         }
 
-        return $query->latest()->paginate(self::PAGINATE_LIMIT);
+        return $query->with('reactions')->latest()->paginate(self::PAGINATE_LIMIT);
     }
 
     public function getByID($id)
     {
-        return Movie::where('id', $id)->with('reactions')->first();
+        $movie = Movie::where('id', $id)->with(['reactions', 'genre'])->first();
+        $movie->increment('visits');
+
+        return $movie;
     }
 
     public function create($data)
     {
         return Movie::create($data);
     }
-
-    public function update($request, $id)
-    { }
-
-    public function delete($movie)
-    { }
 }
