@@ -20,7 +20,7 @@ class UpdateWatchlistRequest extends FormRequest
     public function validator()
     {
         $inputs =  [
-            'id' => $this->watchlist,
+            'id' => $this->id,
         ];
 
         return Validator::make($inputs, [
