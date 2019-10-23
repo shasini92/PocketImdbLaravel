@@ -1,5 +1,6 @@
 <?php
 
+use App\Movie;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +15,7 @@ class AddDefaultValueToVisits extends Migration
     public function up()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->integer('visits')->default(0)->change();;
+            $table->integer(Movie::MOVIE_COLUMN_VISITS)->default(0)->change();
         });
     }
 
@@ -26,7 +27,7 @@ class AddDefaultValueToVisits extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
-            //
+            $table->integer(Movie::MOVIE_COLUMN_VISITS)->change();
         });
     }
 }

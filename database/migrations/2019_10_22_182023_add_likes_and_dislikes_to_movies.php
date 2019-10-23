@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Movie;
 
 class AddLikesAndDislikesToMovies extends Migration
 {
@@ -14,8 +15,8 @@ class AddLikesAndDislikesToMovies extends Migration
     public function up()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->unsignedInteger('likes')->default(0);
-            $table->unsignedInteger('dislikes')->default(0);
+            $table->unsignedInteger(Movie::MOVIE_COLUMN_LIKES)->default(0);
+            $table->unsignedInteger(Movie::MOVIE_COLUMN_DISLIKES)->default(0);
         });
     }
 
@@ -27,8 +28,8 @@ class AddLikesAndDislikesToMovies extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->dropColumn('likes');
-            $table->dropColumn('dislikes');
+            $table->dropColumn(Movie::MOVIE_COLUMN_LIKES);
+            $table->dropColumn(Movie::MOVIE_COLUMN_DISLIKES);
         });
     }
 }
