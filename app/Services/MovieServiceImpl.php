@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\SearchedMovie;
 use App\Movie;
 use App\Reaction;
 use App\Services\MovieService;
@@ -21,7 +22,9 @@ class MovieServiceImpl implements MovieService
         $sortBy = $data['sortBy'];
 
         if ($searchQuery !== null) {
-            $query->whereRaw("title LIKE '%$searchQuery%'");
+            // $query->whereRaw("title LIKE '%$searchQuery%'");
+            $movies =  Movie::searchByQuery(['match_phrase_prefix' => ['title' => $searchQuery]]);
+            return new SearchedMovie($movies);
         }
 
         if ($genreId !== null) {
@@ -45,7 +48,9 @@ class MovieServiceImpl implements MovieService
 
     public function create($data)
     {
-        return Movie::create($data);
+        $newMovie =  Movie::create($data);
+        $newMovie->addToIndex();
+        return $newMovie;
     }
 
     public function react($data)

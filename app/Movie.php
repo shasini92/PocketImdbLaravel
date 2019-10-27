@@ -6,10 +6,13 @@ use App\Genre;
 use App\Comment;
 use App\Reaction;
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 
 class Movie extends Model
 {
+    use ElasticquentTrait;
+
     const MOVIE_COLUMN_LIKES = 'likes';
     const MOVIE_COLUMN_DISLIKES = 'dislikes';
     const MOVIE_COLUMN_VISITS = 'visits';
