@@ -22,9 +22,16 @@ class MovieServiceImpl implements MovieService
         $sortBy = $data['sortBy'];
 
         if ($searchQuery !== null) {
-            // $query->whereRaw("title LIKE '%$searchQuery%'");
-            $movies =  Movie::searchByQuery(['match_phrase_prefix' => ['title' => $searchQuery]]);
-            return new SearchedMovie($movies);
+            $movies = Movie::searchByQuery([
+                'wildcard' => [
+                    'title' => [
+                        'value' => "*$searchQuery*",
+                        "boost" => 1.0
+                    ]
+                ]
+            ]);
+
+            $query->whereIn('id', $movies->pluck('id')->all());
         }
 
         if ($genreId !== null) {
@@ -35,7 +42,9 @@ class MovieServiceImpl implements MovieService
             return $query->orderBy($sortBy, 'desc')->take(self::POPULAR_LIMIT)->get();
         }
 
-        return $query->with('reactions')->latest()->paginate(self::PAGINATE_LIMIT);
+        return $query->with('reactions')->latest()->paginate(self::PAGINATE_LIMIT)->appends([
+            'searchTerm' => $searchQuery
+        ]);
     }
 
     public function getByID($id)
