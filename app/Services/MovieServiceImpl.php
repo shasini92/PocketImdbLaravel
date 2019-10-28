@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\SearchedMovie;
 use App\Movie;
 use App\Reaction;
 use App\Services\MovieService;
@@ -21,7 +22,16 @@ class MovieServiceImpl implements MovieService
         $sortBy = $data['sortBy'];
 
         if ($searchQuery !== null) {
-            $query->whereRaw("title LIKE '%$searchQuery%'");
+            $movies = Movie::searchByQuery([
+                'wildcard' => [
+                    'title' => [
+                        'value' => "*$searchQuery*",
+                        "boost" => 1.0
+                    ]
+                ]
+            ]);
+
+            $query->whereIn('id', $movies->pluck('id')->all());
         }
 
         if ($genreId !== null) {
@@ -32,7 +42,9 @@ class MovieServiceImpl implements MovieService
             return $query->orderBy($sortBy, 'desc')->take(self::POPULAR_LIMIT)->get();
         }
 
-        return $query->with('reactions')->latest()->paginate(self::PAGINATE_LIMIT);
+        return $query->with('reactions')->latest()->paginate(self::PAGINATE_LIMIT)->appends([
+            'searchTerm' => $searchQuery
+        ]);
     }
 
     public function getByID($id)
@@ -45,7 +57,9 @@ class MovieServiceImpl implements MovieService
 
     public function create($data)
     {
-        return Movie::create($data);
+        $newMovie =  Movie::create($data);
+        $newMovie->addToIndex();
+        return $newMovie;
     }
 
     public function react($data)
