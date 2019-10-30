@@ -26,7 +26,7 @@ php artisan db:seed
 ```
 ### Download ElasticSearch and run the elasticsearch.exe from:
 ```
-https://www.elastic.co/downloads/elasticsearch
+[https://www.elastic.co/downloads/elasticsearch]
 ```
 ### Run this command to index your database in ElasticSearch
 ```
