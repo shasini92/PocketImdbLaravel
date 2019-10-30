@@ -25,9 +25,8 @@ php artisan migrate
 php artisan db:seed
 ```
 ### Download ElasticSearch and run the elasticsearch.exe from:
-```
-[https://www.elastic.co/downloads/elasticsearch]
-```
+[Get Elastic](https://www.elastic.co/downloads/elasticsearch)
+
 ### Run this command to index your database in ElasticSearch
 ```
 php artisan search:index
